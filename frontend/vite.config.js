@@ -16,7 +16,7 @@ export default defineConfig(({ mode }) => ({
   // uncomment the following lines:
   server: {
     proxy: {
-      '/api': 'http://localhost:10000/'
+      '/api': 'http://localhost:8000/'
     }
   }
 }));

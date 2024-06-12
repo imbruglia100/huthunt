@@ -17,7 +17,7 @@ function LoginFormModal() {
     e.preventDefault();
     setErrors({});
     return dispatch(
-      sessionActions.login({ credential: "demo", password: "demolition" })
+      sessionActions.login({ credential: "Demo-lition", password: "password" })
     )
       .then(closeModal)
       .catch(async (res) => {

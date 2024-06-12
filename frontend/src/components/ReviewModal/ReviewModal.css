@@ -1,0 +1,12 @@
+#star-rating-container > *{
+    font-size: 25px;
+    color: black;
+}
+
+.black {
+    color:black
+}
+
+.gold {
+    color: rgb(236, 217, 40);
+}

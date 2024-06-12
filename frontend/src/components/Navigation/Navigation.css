@@ -1,0 +1,16 @@
+nav {
+    display: flex;
+    list-style: none;
+    border-bottom: 2px solid rgb(168, 168, 168);
+    align-items: center;
+    padding: 10px;
+}
+
+nav > li > *{
+    padding: 7px 10px;
+}
+
+.btns {
+    margin: 0 0 0 auto;
+    display: flex;
+}

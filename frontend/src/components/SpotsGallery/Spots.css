@@ -1,0 +1,72 @@
+.next-page-btns {
+    display: flex;
+    margin: 0 auto;
+    width: fit-content;
+    align-items: center;
+}
+
+.next-page-btns > button{
+    margin: 5px;
+    height: fit-content;
+    
+}
+
+.spots-container {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    columns: 4;
+    max-width: 1903px;
+    margin: 15px auto;
+}
+
+.spot-card {
+    margin: 10px;
+}
+
+.spot-img-container{
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    padding: 0;
+}
+
+.spot-card .spot-img{
+    width: 400px;
+    height: 400px;
+    overflow: hidden;
+    object-fit: cover;
+    object-position: center;
+}
+
+.spot-info {
+    display: flex;
+    justify-content: space-between;
+}
+
+.spot-card .spot-star-rating {
+    display: flex;
+    height: fit-content;
+}
+
+
+#spot-name {
+    opacity: 0;
+    word-wrap: normal;
+    color: #ffffff;
+    font-weight: 600;
+    position: absolute;
+    bottom: 4px;
+    padding-left: 3px;
+    font-size: 3em;
+    overflow: hidden;
+    width: 100%;
+    box-shadow: inset 0px -100px 30px -68px rgba(0, 0, 0, 1);
+    transition: 200ms all ease-in;
+}
+
+
+.spot-img-container:hover > #spot-name,
+.spot-img-container:focus > #spot-name {
+    opacity: 1;
+}

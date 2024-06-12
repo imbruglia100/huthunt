@@ -1,0 +1,16 @@
+.delete-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+}
+
+.button-container-delete {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.button-container-delete button {
+    margin: 0 5px;
+}

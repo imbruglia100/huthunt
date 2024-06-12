@@ -16,7 +16,7 @@ export default defineConfig(({ mode }) => ({
   // uncomment the following lines:
   server: {
     proxy: {
-      '/api': 'https://airbnb-arb5.onrender.com'
+      '/api': 'http://localhost:10000/'
     }
   }
 }));

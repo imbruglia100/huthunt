@@ -90,7 +90,7 @@ export const restoreUser = () => async (dispatch) => {
   }
 
   export const deleteUserSpot = (id) => async (dispatch) => {
-    const response = await csrfFetch(`${url}/api/spots/${id}`, {
+    const response = await csrfFetch(`/api/spots/${id}`, {
       method: 'DELETE'
     });
     dispatch(removeUserSpot(id));
@@ -98,7 +98,7 @@ export const restoreUser = () => async (dispatch) => {
   };
 
   export const logout = () => async (dispatch) => {
-    const response = await csrfFetch(url+'/api/session', {
+    const response = await csrfFetch('/api/session', {
       method: 'DELETE'
     });
     dispatch(removeUser());

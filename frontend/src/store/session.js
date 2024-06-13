@@ -77,7 +77,7 @@ export const restoreUser = () => async (dispatch) => {
         const currSpots = await response.json()
         const newState = {}
 
-        if(currSpots.Spots.length > 0){
+        if(currSpots.Spots && currSpots.Spots.length > 0){
           currSpots.Spots.forEach(spot => {
             newState[spot.id] = spot
           })
@@ -116,8 +116,15 @@ const sessionReducer = (state = initialState, action) => {
       return { ...state, user: action.payload };
     case SET_USER_SPOTS:
       return {...state, userSpots: {spots: {...action.payload}, isLoaded: true}}
-    case REMOVE_USER_SPOT:
-      return {...state, userSpots: {...state.userSpots, spots: {[action.payload]: null}, isLoaded: true}}
+    case REMOVE_USER_SPOT:{
+        const newState = Object.keys(state.userSpots.spots)
+        .filter(key => key === action.payload)
+        .reduce((obj, key) => {
+          obj[key] = newState[key]
+        }, {})
+
+      return {...state, userSpots: {...state.userSpots, spots: {...newState}, isLoaded: true}}
+    }
     case REMOVE_USER:
       return { ...state, user: null };
     default:

@@ -4,8 +4,9 @@ import { useState } from "react";
 // import { FaStar } from "react-icons/fa";
 import './ReviewModal.css'
 import { useDispatch } from "react-redux";
-import { createAReviewWithId } from "../../store/reviews";
+import { createAReviewWithId, getReviewsBySpotById } from "../../store/reviews";
 import { useModal } from "../../context/Modal";
+import { getSpotById } from "../../store/spots";
 
 const AddReviewModal = ({spotId}) => {
   const {closeModal} = useModal()
@@ -39,6 +40,8 @@ const dispatch = useDispatch()
   const handleSubmit = async () => {
 
     dispatch(createAReviewWithId(spotId, review))
+    dispatch(getReviewsBySpotById(spotId))
+    dispatch(getSpotById(spotId))
     closeModal()
   };
   return (

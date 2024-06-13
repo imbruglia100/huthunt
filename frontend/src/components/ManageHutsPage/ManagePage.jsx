@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getSpotsFromCurrent } from "../../store/session";
 import "./ManageHuts.css";
-import { useParams } from "react-router-dom";
+import { Navigate, useParams } from "react-router-dom";
 import SpotCard from "../SpotsGallery/SpotCard";
 import { getReviewsByCurrentUser, resetReviews } from "../../store/reviews";
 import ReviewCard from "../SpotDetailPage/ReviewCard";
@@ -14,6 +14,7 @@ const ManagePage = () => {
   const dispatch = useDispatch();
   const userSpots = useSelector((state) => state.session.userSpots);
   const userReviews = useSelector((state) => state.reviewState);
+  const user = useSelector(state=>state.session.user)
 
   useEffect(() => {
     dispatch(resetReviews());
@@ -51,7 +52,7 @@ const ManagePage = () => {
         <h1>Manage Your Huts</h1>
         <div className='manage-spot-cards'>
           {userSpots.isLoaded ? (
-            Object.keys(userSpots).length > 0 ? (
+            Object.keys(userSpots.spots).length > 0 ? (
               Object.values(userSpots.spots).map((spot, i) => (
                 <SpotCard manage={true} key={i} spot={spot} />
               ))
@@ -66,7 +67,7 @@ const ManagePage = () => {
     );
   };
 
-  return <>{type === "huts" ? <ManageHuts /> : <ManageReviews />}</>;
+  return <>{user ? type === "huts" ? <ManageHuts /> : <ManageReviews /> : <Navigate to='/' />}</>;
 };
 
 export default ManagePage;

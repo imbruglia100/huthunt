@@ -104,8 +104,14 @@ const reviewsReducer = (state = initialState, action) => {
       return { ...state, reviews: {...action.payload}, isLoaded: true };
     case ADD_REVIEW:
       return {...state, reviews: {...state.reviews, [action.payload.id]: action.payload}, isLoaded: true}
-    case REMOVE_REVIEW:
-      return {...state, reviews: {...state.reviews, [action.payload]: null}}
+    case REMOVE_REVIEW:{
+      const newState = Object.keys(state.reviews)
+      .filter(key => key === action.payload)
+      .reduce((obj, key) => {
+        obj[key] = newState[key]
+      }, {})
+      return {...state, reviews: {...newState}}
+    }
     case RESET:
       return initialState
     default:

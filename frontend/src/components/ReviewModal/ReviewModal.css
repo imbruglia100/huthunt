@@ -1,12 +1,12 @@
-#star-rating-container > *{
-    font-size: 25px;
-    color: black;
+.star{
+    width: 25px;
+    height: 25px;
+    fill: gray;
+    stroke:rgb(0, 0, 0);
+    stroke-width: 2;
+    transition: fill 200ms;
 }
 
-.black {
-    color:black
-}
-
-.gold {
-    color: rgb(236, 217, 40);
+.star.gold {
+    fill: #e2c000;
 }

@@ -5,8 +5,10 @@ import { useState } from "react";
 import './ReviewModal.css'
 import { useDispatch } from "react-redux";
 import { createAReviewWithId } from "../../store/reviews";
+import { useModal } from "../../context/Modal";
 
 const AddReviewModal = ({spotId}) => {
+  const {closeModal} = useModal()
   const [review, setReview] = useState({
     review: '',
     stars: 5
@@ -37,6 +39,7 @@ const dispatch = useDispatch()
   const handleSubmit = async () => {
 
     dispatch(createAReviewWithId(spotId, review))
+    closeModal()
   };
   return (
     <form className='modalForm' onSubmit={handleSubmit}>

@@ -14,12 +14,12 @@ const ReviewCard = ({ manage, review }) => {
     }
 
     return (
-        <div className="review-container">
+        review && <div className="review-container">
             <h2>{User?.firstName[0].toUpperCase() + User?.firstName.slice(1) || 'Happy Renter'}</h2>
-            {/* <h3>{review?.createdAt && review?.createdAt.split('T')[0]}</h3> */}
+            <h3>{review?.createdAt && review?.createdAt.split('T')[0]}</h3>
             {review?.review}
             <div className='star-container'>
-                <FaStar/><span>{review.stars}</span>
+                <FaStar/><span>{review?.stars}</span>
             </div>
             {manage && (
                 <div className="btns-group">

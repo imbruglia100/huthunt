@@ -27,7 +27,7 @@ const addReview = (review) => {
 
 const removeReview = (id) => {
   return {
-    type: ADD_REVIEW,
+    type: REMOVE_REVIEW,
     payload: id
   }
 }
@@ -105,7 +105,7 @@ const reviewsReducer = (state = initialState, action) => {
     case ADD_REVIEW:
       return {...state, reviews: {...state.reviews, [action.payload.id]: action.payload}, isLoaded: true}
     case REMOVE_REVIEW:
-      return {...state, reviews: {...state.reviews, [+action.payload]: null}}
+      return {...state, reviews: {...state.reviews, [action.payload]: null}}
     case RESET:
       return initialState
     default:

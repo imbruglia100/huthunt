@@ -76,11 +76,14 @@ export const restoreUser = () => async (dispatch) => {
     if(response.ok){
         const currSpots = await response.json()
         const newState = {}
-        currSpots.Spots.length > 0 && currSpots.Spots.forEach(spot => {
 
-          newState[spot.id] = spot
-        })
+        if(currSpots.Spots.length > 0){
+          currSpots.Spots.forEach(spot => {
+            newState[spot.id] = spot
+          })
 
+
+        }
 
         dispatch(setUserSpots(newState))
         return newState

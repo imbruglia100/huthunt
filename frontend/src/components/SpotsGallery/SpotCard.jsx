@@ -16,8 +16,7 @@ const SpotCard = ({ spot, manage }) => {
   const handleRoute = () => {
     navigate(`/huts/${spot.id}`);
   };
-  const handleDelete = async (e) => {
-    e.preventDefault()
+  const handleDelete = async () => {
     await dispatch(deleteUserSpot(spot.id))
   }
   return (

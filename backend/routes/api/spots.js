@@ -103,7 +103,7 @@ router.post('/:spotId/bookings', [
     if(overLappingStart) errors.startDate = "Start date conflicts with an existing booking"
 
     if(overLappingEnd) errors.endDate = "End date conflicts with an existing booking"
-    
+
     if(bookingInside){
         errors.startDate = "Start date conflicts with an existing booking"
         errors.endDate = "End date conflicts with an existing booking"
@@ -231,7 +231,7 @@ router.get('/current', requireAuth, async (req, res) => {
 
     })
 
-    if(!spots || spots.length === 0)return res.status(404).json({message: "You have no spots!"})
+    if(!spots || spots.length === 0)return res.status(200).json({message: "You have no spots!"})
 
     const spotsWithAvgStars = spots.map(spot => {
         const reviews = spot.Reviews || [];

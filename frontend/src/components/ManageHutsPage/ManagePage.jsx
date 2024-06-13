@@ -51,7 +51,7 @@ const ManagePage = () => {
         <h1>Manage Your Huts</h1>
         <div className='manage-spot-cards'>
           {userSpots.isLoaded ? (
-            userSpots ? (
+            Object.keys(userSpots).length > 0 ? (
               Object.values(userSpots.spots).map((spot, i) => (
                 <SpotCard manage={true} key={i} spot={spot} />
               ))

@@ -6,8 +6,10 @@ import { updateSpot } from "../../store/spots";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { Navigate } from "react-router-dom";
+import { useModal } from "../../context/Modal";
 
 const EditPage = ({ spot }) => {
+  const {closeModal} = useModal()
   const dispatch = useDispatch();
   const [errors, setErrors] = useState({});
   const [newSpot, setNewSpot] = useState({
@@ -23,7 +25,8 @@ const EditPage = ({ spot }) => {
   });
   const user = useSelector((state) => state.session.user);
 
-  const handleHut = async () => {
+  const handleHut = async (e) => {
+    e.preventDefault()
     if (!Object.values(errors).length > 0) {
       const res = await dispatch(updateSpot(spot, newSpot));
 
@@ -33,6 +36,7 @@ const EditPage = ({ spot }) => {
         //     setNewSpot({})
         //     }
       }
+      closeModal()
     }
 
     setErrors({});

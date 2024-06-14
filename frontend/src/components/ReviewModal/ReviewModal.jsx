@@ -29,9 +29,9 @@ const AddReviewModal = ({ spotId }) => {
 
   },[])
   const handleSubmit = async () => {
-    dispatch(createAReviewWithId(spotId, review));
-    dispatch(getReviewsBySpotById(spotId));
-    dispatch(getSpotById(spotId));
+    await dispatch(createAReviewWithId(spotId, review));
+    await dispatch(getReviewsBySpotById(spotId));
+    await dispatch(getSpotById(spotId));
     closeModal();
   };
 

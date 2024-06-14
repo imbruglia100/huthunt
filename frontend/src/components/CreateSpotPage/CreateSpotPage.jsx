@@ -72,7 +72,7 @@ const CreateSpotPage = () => {
         })
       : "";
 
-    if(!Object.values(errors).length > 0){
+    if(Object.values(errors).length === 0){
 
         const res = await dispatch(createASpot(newSpot));
 

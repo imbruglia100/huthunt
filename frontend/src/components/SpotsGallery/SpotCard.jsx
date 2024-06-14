@@ -9,15 +9,19 @@ import { useDispatch } from "react-redux";
 import OpenModalButton from "../OpenModalButton/OpenModalButton";
 import EditPage from "../ManageHutsPage/EditPage";
 import DeletePopup from '../DeletePopup/DeletePopup'
+import { useSelector } from "react-redux";
 
 const SpotCard = ({ spot, manage }) => {
+  const user = useSelector(state=>state.session.user)
   const navigate = useNavigate();
   const dispatch = useDispatch()
   const handleRoute = () => {
     navigate(`/huts/${spot.id}`);
   };
   const handleDelete = async () => {
-    await dispatch(deleteUserSpot(spot.id))
+    if(user.id === spot.ownerId){
+      await dispatch(deleteUserSpot(spot.id))
+    }
   }
   return (
     spot ? <div className='spot-card'>

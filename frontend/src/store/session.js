@@ -1,34 +1,36 @@
-import { csrfFetch } from './csrf';
+/** @format */
+
+import { csrfFetch } from "./csrf";
 
 const SET_USER = "session/setUser";
 const REMOVE_USER = "session/removeUser";
-const SET_USER_SPOTS = "session/setUserSpots"
-const REMOVE_USER_SPOT = "session/removeUserSpot"
+const SET_USER_SPOTS = "session/setUserSpots";
+const REMOVE_USER_SPOT = "session/removeUserSpot";
 
 const setUser = (user) => {
   return {
     type: SET_USER,
-    payload: user
+    payload: user,
   };
 };
 
 const setUserSpots = (spots) => {
   return {
     type: SET_USER_SPOTS,
-    payload: spots
-  }
-}
+    payload: spots,
+  };
+};
 
 const removeUserSpot = (id) => {
   return {
     type: REMOVE_USER_SPOT,
-    payload: id
+    payload: id,
   };
 };
 
 const removeUser = () => {
   return {
-    type: REMOVE_USER
+    type: REMOVE_USER,
   };
 };
 
@@ -38,8 +40,8 @@ export const login = (user) => async (dispatch) => {
     method: "POST",
     body: JSON.stringify({
       credential,
-      password
-    })
+      password,
+    }),
   });
   const data = await response.json();
   dispatch(setUser(data.user));
@@ -47,83 +49,92 @@ export const login = (user) => async (dispatch) => {
 };
 
 export const restoreUser = () => async (dispatch) => {
-    const response = await csrfFetch("/api/session");
-    const data = await response.json();
-    dispatch(setUser(data.user));
-    return response;
-  };
+  const response = await csrfFetch("/api/session");
+  const data = await response.json();
+  dispatch(setUser(data.user));
+  return response;
+};
 
-  export const signup = (user) => async (dispatch) => {
-    const { username, firstName, lastName, email, password } = user;
-    const response = await csrfFetch("/api/users", {
-      method: "POST",
-      body: JSON.stringify({
-        username,
-        firstName,
-        lastName,
-        email,
-        password
-      })
-    });
-    const data = await response.json();
-    dispatch(setUser(data.user));
-    return response;
-  };
+export const signup = (user) => async (dispatch) => {
+  const { username, firstName, lastName, email, password } = user;
+  const response = await csrfFetch("/api/users", {
+    method: "POST",
+    body: JSON.stringify({
+      username,
+      firstName,
+      lastName,
+      email,
+      password,
+    }),
+  });
+  const data = await response.json();
+  dispatch(setUser(data.user));
+  return response;
+};
 
-  export const getSpotsFromCurrent = () => async (dispatch) => {
-    const response = await csrfFetch(`/api/spots/current`)
+export const getSpotsFromCurrent = () => async (dispatch) => {
+  const response = await csrfFetch(`/api/spots/current`);
 
-    if(response.ok){
-        const currSpots = await response.json()
-        const newState = {}
+  if (response.ok) {
+    const currSpots = await response.json();
+    const newState = {};
 
-        if(currSpots.Spots && currSpots.Spots.length > 0){
-          currSpots.Spots.forEach(spot => {
-            newState[spot.id] = spot
-          })
-
-
-        }
-
-        dispatch(setUserSpots(newState))
-        return newState
+    if (currSpots.Spots && currSpots.Spots.length > 0) {
+      currSpots.Spots.forEach((spot) => {
+        newState[spot.id] = spot;
+      });
     }
 
-    return {error: "Unable to retrieve details."}
+    dispatch(setUserSpots(newState));
+    return newState;
   }
 
-  export const deleteUserSpot = (id) => async (dispatch) => {
-    const response = await csrfFetch(`/api/spots/${id}`, {
-      method: 'DELETE'
-    });
-    dispatch(removeUserSpot(id));
-    return response;
-  };
+  return { error: "Unable to retrieve details." };
+};
 
-  export const logout = () => async (dispatch) => {
-    const response = await csrfFetch('/api/session', {
-      method: 'DELETE'
-    });
-    dispatch(removeUser());
-    return response;
-  };
+export const deleteUserSpot = (id) => async (dispatch) => {
+  const response = await csrfFetch(`/api/spots/${id}`, {
+    method: "DELETE",
+  });
+  dispatch(removeUserSpot(id));
+  return response;
+};
 
-const initialState = { user: null, isLoaded: false, userSpots: {spots: null, isLoaded:false} };
+export const logout = () => async (dispatch) => {
+  const response = await csrfFetch("/api/session", {
+    method: "DELETE",
+  });
+  dispatch(removeUser());
+  return response;
+};
+
+const initialState = {
+  user: null,
+  isLoaded: false,
+  userSpots: { spots: null, isLoaded: false },
+};
 
 const sessionReducer = (state = initialState, action) => {
   switch (action.type) {
     case SET_USER:
       return { ...state, user: action.payload };
     case SET_USER_SPOTS:
-      return {...state, userSpots: {spots: {...action.payload}, isLoaded: true}}
-    case REMOVE_USER_SPOT:{
-        const newState = Object.keys(state.userSpots.spots)
-        .filter(key => key === action.payload)
-        .reduce((obj, key) => {
-          obj[key] = newState[key]
-        }, {})
+      return {
+        ...state,
+        userSpots: { spots: { ...action.payload }, isLoaded: true },
+      };
+    case REMOVE_USER_SPOT: {
+      const { [action.payload]: removedSpot, ...remainingSpots } =
+        state.userSpots.spots;
 
-      return {...state, userSpots: {...state.userSpots, spots: {...newState}, isLoaded: true}}
+      return {
+        ...state,
+        userSpots: {
+          ...state.userSpots,
+          spots: remainingSpots,
+          isLoaded: true,
+        },
+      };
     }
     case REMOVE_USER:
       return { ...state, user: null };

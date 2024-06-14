@@ -15,7 +15,9 @@ const ReviewCard = ({ manage, review }) => {
   const [date, setDate] = useState([])
 
   const handleDelete = async () => {
-    await dispatch(delelteReview(review.id));
+    if(User.id === review.userId){
+        await dispatch(delelteReview(review.id));
+}
   };
 
   useEffect(() => {

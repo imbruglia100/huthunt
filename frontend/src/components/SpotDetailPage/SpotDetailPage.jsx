@@ -109,6 +109,7 @@ const SpotDetailPage = () => {
               <h3>Be the first one to post a review!</h3>
             ) : (
               Object.values(reviews)
+                .reverse()
                 .map((review) => <ReviewCard key={review.id} review={review} />)
             )}
           </div>

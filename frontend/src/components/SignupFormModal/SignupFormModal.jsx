@@ -46,9 +46,9 @@ function SignupFormModal() {
 
   return (
     <>
-      <form className="modalForm" onSubmit={handleSubmit}>
-      <h1>Sign Up</h1>
-        <div className="input-container">
+      <form className='modalForm' onSubmit={handleSubmit}>
+        <h1>Sign Up</h1>
+        <div className='input-container'>
           <label>Email</label>
           <input
             type='text'
@@ -59,7 +59,7 @@ function SignupFormModal() {
           {errors.email && <p>{errors.email}</p>}
         </div>
 
-        <div className="input-container">
+        <div className='input-container'>
           <label>Username</label>
           <input
             type='text'
@@ -70,7 +70,7 @@ function SignupFormModal() {
           {errors.username && <p>{errors.username}</p>}
         </div>
 
-        <div className="input-container">
+        <div className='input-container'>
           <label>First Name</label>
           <input
             type='text'
@@ -81,7 +81,7 @@ function SignupFormModal() {
           {errors.firstName && <p>{errors.firstName}</p>}
         </div>
 
-        <div className="input-container">
+        <div className='input-container'>
           <label>Last Name</label>
           <input
             type='text'
@@ -92,7 +92,7 @@ function SignupFormModal() {
           {errors.lastName && <p>{errors.lastName}</p>}
         </div>
 
-        <div className="input-container">
+        <div className='input-container'>
           <label>Password</label>
           <input
             type='password'
@@ -103,7 +103,7 @@ function SignupFormModal() {
           {errors.password && <p>{errors.password}</p>}
         </div>
 
-        <div className="input-container">
+        <div className='input-container'>
           <label>Confirm Password</label>
           <input
             type='password'
@@ -111,9 +111,26 @@ function SignupFormModal() {
             onChange={(e) => setConfirmPassword(e.target.value)}
             required
           />
+          
           {errors.confirmPassword && <p>{errors.confirmPassword}</p>}
         </div>
-        <button className="primary-btn" type='submit'>Sign Up</button>
+        <button
+          disabled={
+            !email ||
+            !username ||
+            username.length < 4 ||
+            !firstName ||
+            !lastName ||
+            !password ||
+            password.length < 6 ||
+            !confirmPassword ||
+            confirmPassword.length < 6
+          }
+          className='primary-btn'
+          type='submit'
+        >
+          Sign Up
+        </button>
       </form>
     </>
   );

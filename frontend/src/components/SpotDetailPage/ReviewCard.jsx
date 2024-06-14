@@ -15,12 +15,16 @@ const ReviewCard = ({ manage, review }) => {
 
     return (
         review && <div className="review-container">
-            <h2>{User?.firstName[0].toUpperCase() + User?.firstName.slice(1) || 'Happy Renter'}</h2>
-            <h3>{review?.createdAt && review?.createdAt.split('T')[0]}</h3>
-            {review?.review}
+            <div className='flex-container'>
+
+            <h1>{User?.firstName[0].toUpperCase() + User?.firstName.slice(1) || 'Happy Renter'}</h1>
             <div className='star-container'>
                 <FaStar/><span>{review?.stars}</span>
             </div>
+            </div>
+            <h3>{review?.createdAt && review?.createdAt.split('T')[0]}</h3>
+            {review?.review}
+
             {manage && (
                 <div className="btns-group">
                 <OpenModalButton

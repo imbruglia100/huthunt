@@ -1,11 +1,26 @@
 .review-container{
     display: flex;
     flex-direction: column;
-    background-color: #FBFFB9;
+    background-color: #ffb158;
     margin-bottom: 15px;
     padding: 10px;
+    border: 1px black solid;
 }
 
 .star-container {
     display: flex;
+}
+
+.star-container *{
+    font-size: 20px;
+}
+
+.flex-container {
+    display: flex;
+    align-items: center;
+}
+
+.flex-container h1 {
+    margin: 0;
+    margin-right: 10px;
 }

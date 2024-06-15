@@ -3,7 +3,7 @@
 import { FaStar } from "react-icons/fa";
 import "./ReviewCard.css";
 import { useDispatch } from "react-redux";
-import { delelteReview } from "../../store/reviews";
+import { deleteReview } from "../../store/reviews";
 import DeletePopup from "../DeletePopup/DeletePopup";
 import OpenModalButton from "../OpenModalButton/OpenModalButton";
 import { useEffect, useState } from "react";
@@ -16,7 +16,7 @@ const ReviewCard = ({ manage, review }) => {
 
   const handleDelete = async () => {
     if(User.id === review.userId){
-        await dispatch(delelteReview(review.id));
+        await dispatch(deleteReview(review.id));
 }
   };
 

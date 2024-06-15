@@ -83,7 +83,7 @@ export const createAReviewWithId = (id, review) => async (dispatch) => {
   return errors
 }
 
-export const delelteReview = (id) => async (dispatch) => {
+export const deleteReview = (id) => async (dispatch) => {
   const response = await csrfFetch(`/api/reviews/${id}`, {
     method: "delete",
 })
@@ -105,12 +105,14 @@ const reviewsReducer = (state = initialState, action) => {
     case ADD_REVIEW:
       return {...state, reviews: {...state.reviews, [action.payload.id]: action.payload}, isLoaded: true}
     case REMOVE_REVIEW:{
-      const newState = Object.keys(state.reviews)
-      .filter(key => key === action.payload)
-      .reduce((obj, key) => {
-        obj[key] = newState[key]
-      }, {})
-      return {...state, reviews: {...newState}}
+      const { [action.payload]: removedReview, ...remainingReviews } =
+        state.reviews;
+
+      return {
+        ...state,
+        reviews: remainingReviews,
+        isLoaded: true,
+      };
     }
     case RESET:
       return initialState
